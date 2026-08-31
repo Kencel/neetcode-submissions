@@ -1,0 +1,21 @@
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        ans = 0
+        visited = set()
+        delta = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if (i, j) in visited: continue
+                if grid[i][j] == "0": continue
+                ans += 1
+                s = [(i, j)]
+                while s:
+                    x, y = s.pop()
+                    if grid[x][y] == "0": continue
+                    if (x, y) in visited: continue
+                    visited.add((x, y))
+                    for dx, dy in delta:
+                        if not 0 <= x + dx < len(grid): continue
+                        if not 0 <= y + dy < len(grid[0]): continue
+                        s.append((x + dx, y + dy))
+        return ans
